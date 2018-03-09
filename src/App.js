@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Grid, Row, Col } from 'react-bootstrap'
 
 const navigationStyle = {
   fontSize: 22,
@@ -63,6 +63,9 @@ const Notification = ({ message }) => (
 
 const About = () => (
   <div>
+    <Grid>
+    <Row className="show-grid">
+    <Col xs={6} md={6}>
     <h2>About anecdote app</h2>
     <p>According to Wikipedia:</p>
     
@@ -72,6 +75,15 @@ const About = () => (
       An anecdote is "a story with a point."</em>
 
     <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
+    </Col>
+    <Col xs={6} md={6}>
+    <div>
+    <p/>
+    <img src='linus.jpg' alt="Linus Torwalds"/>
+    </div>
+    </Col>
+    </Row>
+    </Grid>
   </div>
 )
 
