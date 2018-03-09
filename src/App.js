@@ -26,8 +26,24 @@ const Anecdote = ({ anecdote }) => (
   </div>
 )
 
+const notificationStyle = {
+  color: 'green',
+  fontStyle: 'italic',
+  fontSize: 16,
+  fontColor: 'green',
+  border: 'solid',
+  padding: 20,
+  margin: 1,
+  borderRadius: 25,
+  width: 200
+}
+
+const noneStyle = {
+  display: 'none'
+}
+
 const Notification = ({ message }) => (
-  <div>{message}</div>
+  <div style={message !== '' ? notificationStyle : noneStyle}>{message}</div>
 )
 
 const About = () => (
