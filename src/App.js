@@ -1,11 +1,25 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
+
+const navigationStyle = {
+  fontSize: 22,
+  background: 'grey'
+}
 
 const Menu = () => (
-  <div>    
-    <Link to="/">anecdotes</Link>&nbsp;
-    <Link to="/create">create new</Link>&nbsp;
-    <Link to="/about">about</Link>&nbsp;
+  <div style={navigationStyle}>    
+    <NavLink to="/anecdotes" activeStyle={{
+    fontWeight: 'bold',
+    color: 'red'
+   }}>anecdotes</NavLink>&nbsp;
+    <NavLink to="/create" activeStyle={{
+    fontWeight: 'bold',
+    color: 'red'
+   }}>create new</NavLink>&nbsp;
+    <NavLink to="/about" activeStyle={{
+    fontWeight: 'bold',
+    color: 'red'
+   }}>about</NavLink>&nbsp;
   </div>
 )
 
@@ -181,6 +195,7 @@ class App extends React.Component {
             <Notification message={this.state.notification} />
           </div>
           <Route exact path="/" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
+          <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
           <Route exact path="/about" render={() => <About />} />
           <Route exact path="/create" render={({history}) => <CreateNew history={history} addNew={this.addNew}/>} />
           <Route exact path="/anecdotes/:id" render={({match}) =>
@@ -195,3 +210,4 @@ class App extends React.Component {
 }
 
 export default App;
+
