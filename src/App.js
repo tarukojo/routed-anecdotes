@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
-import { ListGroup, ListGroupItem, Grid, Row, Col } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Grid, Row, Col, FormGroup, 
+  ControlLabel, FormControl, Button, Navbar, Nav, NavItem, 
+  Alert, Table, Image, PageHeader, Panel } from 'react-bootstrap'
 
 const navigationStyle = {
   fontSize: 22,
@@ -8,20 +10,36 @@ const navigationStyle = {
 }
 
 const Menu = () => (
-  <div style={navigationStyle}>    
-    <NavLink to="/anecdotes" activeStyle={{
-    fontWeight: 'bold',
-    color: 'red'
-   }}>anecdotes</NavLink>&nbsp;
-    <NavLink to="/create" activeStyle={{
-    fontWeight: 'bold',
-    color: 'red'
-   }}>create new</NavLink>&nbsp;
-    <NavLink to="/about" activeStyle={{
-    fontWeight: 'bold',
-    color: 'red'
-   }}>about</NavLink>&nbsp;
-  </div>
+  <Navbar inverse collapseOnSelect>
+  <Navbar.Header>
+    <Navbar.Brand>
+      Anecdote app
+    </Navbar.Brand>
+    <Navbar.Toggle />
+  </Navbar.Header>
+  <Navbar.Collapse>
+    <Nav>
+      <NavItem href="#">   
+        <NavLink to="/anecdotes" activeStyle={{
+          fontWeight: 'bold',
+          color: 'red'
+        }}>anecdotes</NavLink>&nbsp;
+      </NavItem>
+      <NavItem href="#">
+        <NavLink to="/create" activeStyle={{
+          fontWeight: 'bold',
+          color: 'red'
+        }}>create new</NavLink>&nbsp;
+      </NavItem>
+      <NavItem href="#">
+        <NavLink to="/about" activeStyle={{
+          fontWeight: 'bold',
+          color: 'red'
+        }}>about</NavLink>&nbsp;
+      </NavItem>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
 )
 
 const AnecdoteList = ({ anecdotes }) => (
@@ -58,7 +76,12 @@ const noneStyle = {
 }
 
 const Notification = ({ message }) => (
-  <div style={message !== '' ? notificationStyle : noneStyle}>{message}</div>
+  <div style={message !== '' ? notificationStyle : noneStyle}>
+  {(message &&
+  <Alert color="success">
+    {message}
+  </Alert>
+  )}</div>
 )
 
 const About = () => (
@@ -79,7 +102,7 @@ const About = () => (
     <Col xs={6} md={6}>
     <div>
     <p/>
-    <img src='linus.jpg' alt="Linus Torwalds"/>
+    <Image src='linus.jpg' alt="Linus Torwalds" rounded/>
     </div>
     </Col>
     </Row>
@@ -89,9 +112,11 @@ const About = () => (
 
 const Footer = () => (
   <div>
+    <Table striped>
     Anecdote app for <a href='https://courses.helsinki.fi/fi/TKT21009/121540749'>Full Stack -sovelluskehitys</a>.
 
     See <a href='https://github.com/mluukkai/routed-anecdotes'>https://github.com/mluukkai/routed-anecdotes</a> for the source code. 
+    </Table>
   </div>
 )
 
@@ -126,19 +151,22 @@ class CreateNew extends React.Component {
       <div>
         <h2>create a new anecdote</h2>
         <form onSubmit={this.handleSubmit}>
-          <div>
+        <FormGroup>
+          <ControlLabel>
             content 
-            <input name='content' value={this.state.content} onChange={this.handleChange} />
-          </div>
-          <div>
+          </ControlLabel>
+          <FormControl name='content' value={this.state.content} onChange={this.handleChange} />
+          <ControlLabel>          
             author
-            <input name='author' value={this.state.author} onChange={this.handleChange} />
-          </div>
-          <div>
+          </ControlLabel>
+          <FormControl name='author' value={this.state.author} onChange={this.handleChange} />
+          <ControlLabel>
             url for more info
-            <input name='info' value={this.state.info} onChange={this.handleChange} />
-          </div> 
-          <button>create</button>
+          </ControlLabel>
+          <FormControl name='info' value={this.state.info} onChange={this.handleChange} />
+          <p/>
+          <Button bsStyle="success" type="submit">create</Button>
+        </FormGroup>
         </form>
       </div>  
     )
@@ -198,9 +226,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
+      <Panel>
+      <Panel.Body>
         <Router>
           <div>
-          <h1>Software anecdotes</h1>
+          <PageHeader>Software anecdotes</PageHeader>
           <div>
             <Menu />
           </div>
@@ -216,7 +246,11 @@ class App extends React.Component {
           />
           </div>
         </Router>
+      </Panel.Body>
+      <Panel.Footer>
         <Footer />
+      </Panel.Footer>
+      </Panel>
       </div>
     );
   }
